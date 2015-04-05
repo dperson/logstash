@@ -65,5 +65,6 @@ elif [[ $# -ge 1 ]]; then
     echo "ERROR: command not found: $1"
     exit 13
 else
-    exec su -l logstash -s /bin/bash -c "exec /opt/logstash/bin/logstash agent"
+    exec su -l logstash -s /bin/bash -c "exec /opt/logstash/bin/logstash agent \\
+                -f /etc/logstash/logstash.conf"
 fi
