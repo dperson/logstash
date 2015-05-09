@@ -15,6 +15,6 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
 COPY logstash.conf /etc/logstash/
 COPY logstash.sh /usr/bin/
 
-EXPOSE 5000 5000/udp
+EXPOSE 5140 5140/udp
 
 ENTRYPOINT ["logstash.sh"]
