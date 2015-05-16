@@ -59,7 +59,7 @@ shift $(( OPTIND - 1 ))
 
 [[ "${TIMEZONE:-""}" ]] && timezone "$TIMEZONE"
 
-if ps -ef | grep -q logstash; then
+if ps -ef | grep -v logstash.sh | grep -q logstash; then
     echo "Service already running, please restart container to apply changes"
 elif [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
     exec "$@"
