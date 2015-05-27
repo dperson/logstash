@@ -3,7 +3,7 @@ MAINTAINER David Personette <dperson@dperson.com>
 
 # Install logstash (skip logstash-contrib)
 RUN export DEBIAN_FRONTEND='noninteractive' && \
-    export URL='http://download.elastic.co/logstash/logstash/' && \
+    export URL='http://download.elastic.co/logstash/logstash' && \
     export version='1.5.0' && \
     export sha1sum='9729c2d31fddaabdd3d8e94c34a6d1f61d57f94a' && \
     groupadd -r logstash && useradd -r -g logstash logstash && \
