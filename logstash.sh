@@ -58,6 +58,7 @@ done
 shift $(( OPTIND - 1 ))
 
 [[ "${TIMEZONE:-""}" ]] && timezone "$TIMEZONE"
+chown -Rh logstash. /etc/logstash /opt/logstash
 
 if [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
     exec "$@"

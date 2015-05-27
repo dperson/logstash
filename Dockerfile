@@ -3,13 +3,19 @@ MAINTAINER David Personette <dperson@dperson.com>
 
 # Install logstash (skip logstash-contrib)
 RUN export DEBIAN_FRONTEND='noninteractive' && \
-    apt-key adv --keyserver pgp.mit.edu --recv-keys D27D666CD88E42B4 && \
-    echo -n "deb http://packages.elasticsearch.org/logstash/1.4/debian " >> \
-                /etc/apt/sources.list && \
-    echo -n "stable main" >> /etc/apt/sources.list && \
+    export URL='http://download.elastic.co/logstash/logstash/' && \
+    export version='1.5.0' && \
+    export sha1sum='9729c2d31fddaabdd3d8e94c34a6d1f61d57f94a' && \
+    groupadd -r logstash && useradd -r -g logstash logstash && \
     apt-get update -qq && \
-    apt-get install -qqy --no-install-recommends logstash \
+    apt-get install -qqy --no-install-recommends ca-certificates curl \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
+    curl -LOC- -s $URL/logstash-${version}.tar.gz && \
+    sha1sum logstash-${version}.tar.gz | grep -q "$sha1sum" && \
+    tar -xf logstash-${version}.tar.gz -C /tmp && \
+    mv /tmp/logstash-* /opt/logstash && \
+    mkdir /etc/logstash && \
+    apt-get purge -qqy ca-certificates curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 COPY logstash.conf /etc/logstash/
