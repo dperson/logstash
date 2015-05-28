@@ -16,7 +16,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     tar -xf logstash-${version}.tar.gz -C /tmp && \
     mv /tmp/logstash-* /opt/logstash && \
     mkdir /etc/logstash && \
-    apt-get purge -qqy ca-certificates curl && \
+    apt-get purge -qqy curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 COPY logstash.conf /etc/logstash/
