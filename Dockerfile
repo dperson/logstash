@@ -9,6 +9,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     groupadd -r logstash && useradd -r -g logstash logstash && \
     apt-get update -qq && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
+                openjdk-7-jre \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
     curl -LOC- -s $URL/logstash-${version}.tar.gz && \
     sha1sum logstash-${version}.tar.gz | grep -q "$sha1sum" && \
