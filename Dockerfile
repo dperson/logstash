@@ -16,6 +16,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     tar -xf logstash-${version}.tar.gz -C /tmp && \
     mv /tmp/logstash-* /opt/logstash && \
     mkdir /etc/logstash && \
+    chown -Rh logstash. /etc/logstash /opt/logstash && \
     apt-get purge -qqy curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/*
@@ -23,5 +24,7 @@ COPY logstash.conf /etc/logstash/
 COPY logstash.sh /usr/bin/
 
 EXPOSE 5140 5140/udp
+
+VOLUME ["/etc/logstash" "/opt/logstash"]
 
 ENTRYPOINT ["logstash.sh"]
