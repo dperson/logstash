@@ -1,4 +1,4 @@
-[![logo](http://logstash.net/images/logstash.png)](http://logstash.net/)
+[![logo](https://raw.githubusercontent.com/dperson/logstash/master/logo.png)](http://logstash.net/)
 
 # Logstash
 
