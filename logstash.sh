@@ -64,7 +64,11 @@ done
 shift $(( OPTIND - 1 ))
 
 [[ "${TZ:-""}" ]] && timezone "$TZ"
-chown -Rh logstash. /etc/logstash /opt/logstash
+[[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID logstash
+[[ "${GROUPID:-""}" =~ ^[0-9]+$ ]] && usermod -g $GROUPID logstash
+
+chown -Rh logstash. /etc/logstash /opt/logstash /tmp/*logstash* 2>&1 |
+            grep -iv 'Read-only' || :
 
 if [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
     exec "$@"
