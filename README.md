@@ -33,7 +33,9 @@ When started Logstash container will listen on ports 5000 and 5000/udp.
 
 ENVIROMENT VARIABLES (only available with `docker run`)
 
- * `TZ` - As above, set a zoneinfo timezone, IE `EST5EDT`
+ * `TZ` - As above, configure the zoneinfo timezone, IE `EST5EDT`
+ * `USERID` - Set the UID for the app user
+ * `GROUPID` - Set the GID for the app user
 
 ## Examples
 
