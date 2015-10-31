@@ -4,8 +4,8 @@ MAINTAINER David Personette <dperson@dperson.com>
 # Install logstash (skip logstash-contrib)
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export URL='http://download.elastic.co/logstash/logstash' && \
-    export version='1.5.4' && \
-    export sha1sum='c892b71a3902bfdb54827385ed2c26a14ad816dd' && \
+    export version='2.0.0' && \
+    export sha1sum='f0961520dd9590d3b600c877be66f79f94a05f80' && \
     groupadd -r logstash && useradd -r -g logstash logstash && \
     apt-get update -qq && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
