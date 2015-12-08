@@ -7,9 +7,11 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     export version='2.1.0' && \
     export sha1sum='83b1f6afaa389b0dff1fc4bcddaf96187065512a' && \
     groupadd -r logstash && useradd -r -g logstash logstash && \
+    echo "deb http://httpredir.debian.org/debian jessie-backports main" \
+                >>/etc/apt/sources.list && \
     apt-get update -qq && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
-                openjdk-7-jre \
+                openjdk-8-jre \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
     curl -LOC- -s $URL/logstash-${version}.tar.gz && \
     sha1sum logstash-${version}.tar.gz | grep -q "$sha1sum" && \
