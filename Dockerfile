@@ -4,8 +4,8 @@ MAINTAINER David Personette <dperson@dperson.com>
 # Install logstash (skip logstash-contrib)
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export URL='http://download.elastic.co/logstash/logstash' && \
-    export version='2.1.0' && \
-    export sha1sum='83b1f6afaa389b0dff1fc4bcddaf96187065512a' && \
+    export version='2.1.1' && \
+    export sha1sum='d71a6e015509030ab6012adcf79291994ece0b39' && \
     groupadd -r logstash && useradd -r -g logstash logstash && \
     echo "deb http://httpredir.debian.org/debian jessie-backports main" \
                 >>/etc/apt/sources.list && \
