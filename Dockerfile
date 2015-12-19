@@ -27,7 +27,6 @@ COPY logstash.sh /usr/bin/
 
 EXPOSE 5140 5140/udp
 
-VOLUME ["/run", "/tmp", "/var/cache", "/var/lib", "/var/log", "/var/tmp", \
-            "/etc/logstash", "/opt/logstash"]
+VOLUME ["/etc/logstash", "/opt/logstash"]
 
 ENTRYPOINT ["logstash.sh"]
