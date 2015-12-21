@@ -13,7 +13,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
                 openjdk-8-jre \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
-    curl -LOC- $URL/logstash-${version}.tar.gz && \
+    echo "downloading logstash-${version}.tar.gz ..." && \
+    curl -LOC- -s $URL/logstash-${version}.tar.gz && \
     sha1sum logstash-${version}.tar.gz | grep -q "$sha1sum" && \
     tar -xf logstash-${version}.tar.gz -C /tmp && \
     mv /tmp/logstash-* /opt/logstash && \
