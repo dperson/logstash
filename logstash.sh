@@ -64,8 +64,8 @@ done
 shift $(( OPTIND - 1 ))
 
 [[ "${TZ:-""}" ]] && timezone "$TZ"
-[[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID logstash
-[[ "${GROUPID:-""}" =~ ^[0-9]+$ ]] && groupmod -g $GROUPID logstash
+[[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID -o logstash
+[[ "${GROUPID:-""}" =~ ^[0-9]+$ ]] && groupmod -g $GROUPID -o logstash
 
 chown -Rh logstash. /etc/logstash /opt/logstash /tmp/*logstash* 2>&1 |
             grep -iv 'Read-only' || :
