@@ -17,7 +17,7 @@ When started Logstash container will listen on ports 5000 and 5000/udp.
 
 ## Hosting a Logstash instance
 
-    sudo docker run -d dperson/logstash
+    sudo docker run -it -d dperson/logstash
 
 ## Configuration
 
@@ -40,21 +40,23 @@ ENVIRONMENT VARIABLES (only available with `docker run`)
 ## Examples
 
 Any of the commands can be run at creation with `docker run` or later with
-`docker exec logstash.sh` (as of version 1.3 of docker).
+`docker exec -it logstash.sh` (as of version 1.3 of docker).
 
 ### Setting the Timezone
 
-    sudo docker run -p 5000:5000 -p 5000:5000/udp -d dperson/logstash -t EST5EDT
+    sudo docker run -it -p 5000:5000 -p 5000:5000/udp -d dperson/logstash \
+                -t EST5EDT
 
 OR using `environment variables`
 
-    sudo docker run -p 5000:5000 -p 5000:5000/udp -e TZ=EST5EDT -d \
+    sudo docker run -it -p 5000:5000 -p 5000:5000/udp -e TZ=EST5EDT -d \
                 dperson/logstash
 
 Will get you the same settings as
 
-    sudo docker run --name log -p 5000:5000 -p 5000:5000/udp -d dperson/logstash
-    sudo docker exec log logstash.sh -t EST5EDT ls -AlF /etc/localtime
+    sudo docker run -it --name log -p 5000:5000 -p 5000:5000/udp \
+                -d dperson/logstash
+    sudo docker exec -it log logstash.sh -t EST5EDT ls -AlF /etc/localtime
     sudo docker restart log
 
 ## Complex configuration
@@ -68,7 +70,7 @@ to copy it from a running container:
 
 You can use the modified configuration with:
 
-    sudo docker run --name es -p 5000:5000 -p 5000:5000/udp \
+    sudo docker run -it --name es -p 5000:5000 -p 5000:5000/udp \
                 -v /some/path:/etc/logstash:ro \
                 -d dperson/logstash
 
