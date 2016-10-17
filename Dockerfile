@@ -8,8 +8,6 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     export sha1sum='97314d7b503b966cd4fae13497fdd97d219447ae' && \
     groupadd -r logstash && \
     useradd -c 'Logstash' -d /opt/logstash -g logstash -r logstash && \
-    echo "deb http://httpredir.debian.org/debian stretch-backports main" \
-                >>/etc/apt/sources.list && \
     apt-get update -qq && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
                 openjdk-8-jre \
