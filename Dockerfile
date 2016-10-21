@@ -10,7 +10,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     useradd -c 'Logstash' -d /opt/logstash -g logstash -r logstash && \
     apt-get update -qq && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
-                openjdk-8-jre psutils \
+                openjdk-8-jre procps \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
     echo "downloading logstash-${version}.tar.gz ..." && \
     curl -LOC- -s ${url}/logstash-${version}.tar.gz && \
