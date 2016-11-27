@@ -75,6 +75,6 @@ elif [[ $# -ge 1 ]]; then
 elif ps -ef | egrep -v 'grep|logstash.sh' | grep -q logstash; then
     echo "Service already running, please restart container to apply changes"
 else
-    exec su -l logstash -s /bin/bash -c "exec /opt/logstash/bin/logstash agent\\
-                -f /etc/logstash/logstash.conf"
+    exec su -l logstash -s /bin/bash -c \
+                "exec /opt/logstash/bin/logstash -f /etc/logstash/logstash.conf"
 fi
