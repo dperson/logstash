@@ -12,16 +12,18 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
                 openjdk-8-jre procps \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
-    echo "downloading logstash-${version}.tar.gz ..." && \
-    curl -LOSs ${url}/logstash-${version}.tar.gz && \
-    sha1sum logstash-${version}.tar.gz | grep -q "$sha1sum" && \
-    tar -xf logstash-${version}.tar.gz -C /tmp && \
+    file="logstash-${version}.tar.gz" && \
+    echo "downloading $file ..." && \
+    curl -LOSs ${url}/$file && \
+    sha1sum $file | grep -q "$sha1sum" || \
+    { echo "expected $sha1sum, got $(sha1sum $file)"; exit; } && \
+    tar -xf $file -C /tmp && \
     mv /tmp/logstash-* /opt/logstash && \
     mkdir /etc/logstash && \
     chown -Rh logstash. /etc/logstash /opt/logstash && \
     apt-get purge -qqy curl && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* $file
 COPY logstash.conf /etc/logstash/
 COPY logstash.sh /usr/bin/
 
