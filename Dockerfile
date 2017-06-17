@@ -10,7 +10,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     useradd -c 'Logstash' -d /opt/logstash -g logstash -r logstash && \
     apt-get update -qq && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
-                openjdk-8-jre procps \
+                openjdk-8-jre procps libzmq5 \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
     file="logstash-${version}.tar.gz" && \
     echo "downloading $file ..." && \
@@ -19,16 +19,16 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     { echo "expected $sha1sum, got $(sha1sum $file)"; exit 13; } && \
     tar -xf $file -C /tmp && \
     mv /tmp/logstash-* /opt/logstash && \
-    mkdir /etc/logstash && \
-    chown -Rh logstash. /etc/logstash /opt/logstash && \
+    ln -s /usr/lib/*/libzmq.so.5 /usr/local/lib/libzmq.so
+    chown -Rh logstash. /opt/logstash && \
     apt-get purge -qqy curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* $file
-COPY logstash.conf /etc/logstash/
+COPY logstash.conf /opt/logstash/config/
 COPY logstash.sh /usr/bin/
 
 EXPOSE 5140 5140/udp
 
-VOLUME ["/etc/logstash", "/opt/logstash"]
+VOLUME ["/opt/logstash"]
 
 ENTRYPOINT ["logstash.sh"]

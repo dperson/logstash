@@ -65,7 +65,7 @@ shift $(( OPTIND - 1 ))
 [[ "${USERID:-""}" =~ ^[0-9]+$ ]] && usermod -u $USERID -o logstash
 [[ "${GROUPID:-""}" =~ ^[0-9]+$ ]] && groupmod -g $GROUPID -o logstash
 
-chown -Rh logstash. /etc/logstash /opt/logstash 2>&1 | grep -iv 'Read-only' || :
+chown -Rh logstash. /opt/logstash 2>&1 | grep -iv 'Read-only' || :
 
 if [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
     exec "$@"
@@ -76,5 +76,5 @@ elif ps -ef | egrep -v 'grep|logstash.sh' | grep -q logstash; then
     echo "Service already running, please restart container to apply changes"
 else
     exec su -l logstash -s /bin/bash -c \
-                "exec /opt/logstash/bin/logstash -f /etc/logstash/logstash.conf"
+        "exec /opt/logstash/bin/logstash -f /opt/logstash/config/logstash.conf"
 fi
