@@ -19,7 +19,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     { echo "expected $sha1sum, got $(sha1sum $file)"; exit 13; } && \
     tar -xf $file -C /tmp && \
     mv /tmp/logstash-* /opt/logstash && \
-    ln -s /usr/lib/*/libzmq.so.5 /usr/local/lib/libzmq.so
+    ln -s /usr/lib/*/libzmq.so.5 /usr/local/lib/libzmq.so && \
     chown -Rh logstash. /opt/logstash && \
     apt-get purge -qqy curl && \
     apt-get clean && \
