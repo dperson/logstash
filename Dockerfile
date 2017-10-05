@@ -4,8 +4,8 @@ MAINTAINER David Personette <dperson@gmail.com>
 # Install logstash (skip logstash-contrib)
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export url='https://artifacts.elastic.co/downloads/logstash' && \
-    export version='5.6.1' && \
-    export sha1sum='b6073de855a9f58e3bfe0856415132d49e3bd796' && \
+    export version='5.6.2' && \
+    export shasum='2176cd013c0f62f2bc90386098719e43b735874fca862ae899da209' && \
     groupadd -r logstash && \
     useradd -c 'Logstash' -d /opt/logstash -g logstash -r logstash && \
     apt-get update -qq && \
@@ -15,8 +15,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' && \
     file="logstash-${version}.tar.gz" && \
     echo "downloading $file ..." && \
     curl -LOSs ${url}/$file && \
-    sha1sum $file | grep -q "$sha1sum" || \
-    { echo "expected $sha1sum, got $(sha1sum $file)"; exit 13; } && \
+    sha512sum $file | grep -q "$shasum" || \
+    { echo "expected $shasum, got $(sha512sum $file)"; exit 13; } && \
     tar -xf $file -C /tmp && \
     mv /tmp/logstash-* /opt/logstash && \
     ln -s /usr/lib/*/libzmq.so.5 /usr/local/lib/libzmq.so && \
