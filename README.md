@@ -26,12 +26,14 @@ When started Logstash container will listen on ports 5000 and 5000/udp.
     Usage: logstash.sh [-opt] [command]
     Options (fields in '[]' are optional, '<>' are required):
         -h          This help
+        -t ""       Configure timezone
+                    possible arg: "[timezone]" - zoneinfo timezone for container
 
     The 'command' (if provided and valid) will be run instead of logstash
 
 ENVIRONMENT VARIABLES
 
- * `TZ` - Configure the zoneinfo timezone, IE `EST5EDT`
+ * `TZ` - As above, configure the zoneinfo timezone, IE `EST5EDT`
  * `USERID` - Set the UID for the app user
  * `GROUPID` - Set the GID for the app user
 
@@ -42,8 +44,20 @@ Any of the commands can be run at creation with `docker run` or later with
 
 ### Setting the Timezone
 
+    sudo docker run -it -p 5000:5000 -p 5000:5000/udp -d dperson/logstash \
+                -t EST5EDT
+
+OR using `environment variables`
+
     sudo docker run -it -p 5000:5000 -p 5000:5000/udp -e TZ=EST5EDT -d \
                 dperson/logstash
+
+Will get you the same settings as
+
+    sudo docker run -it --name log -p 5000:5000 -p 5000:5000/udp \
+                -d dperson/logstash
+    sudo docker exec -it log logstash.sh -t EST5EDT ls -AlF /etc/localtime
+    sudo docker restart log
 
 ## Complex configuration
 
