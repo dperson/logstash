@@ -4,8 +4,8 @@ MAINTAINER David Personette <dperson@gmail.com>
 # Install logstash (skip logstash-contrib)
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export url='https://artifacts.elastic.co/downloads/logstash' && \
-    export version='7.4.2' && \
-    export shasum='3ffedd75ad1137565cbb5f13e1c65113d58d4ba49e70d64d287421f' && \
+    export version='7.6.0' && \
+    export shasum='296416b9697ae66b20aae37ada855d7212fc5151055a35cc81e7c3c' && \
     groupadd -r logstash && \
     useradd -c 'Logstash' -d /opt/logstash -g logstash -r logstash && \
     apt-get update -qq && \
