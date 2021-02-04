@@ -4,15 +4,15 @@ MAINTAINER David Personette <dperson@gmail.com>
 # Install logstash (skip logstash-contrib)
 RUN export DEBIAN_FRONTEND='noninteractive' && \
     export url='https://artifacts.elastic.co/downloads/logstash' && \
-    export version='7.10.1' && \
-    export shasum='78b488a915d03d23a96badbd04a01c88be13cd7aee5c0ba300595a4' && \
+    export version='7.10.2' && \
+    export shasum='34099b34a05c6b85b1b355310bd190b606aa0bcce1cad07bf5fd989' && \
     groupadd -r logstash && \
     useradd -c 'Logstash' -d /opt/logstash -g logstash -r logstash && \
     apt-get update -qq && \
     apt-get install -qqy --no-install-recommends ca-certificates curl \
                 openjdk-11-jre procps libzmq5 \
                 $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
-    file="logstash-${version}.tar.gz" && \
+    file="logstash-${version}-linux-x86_64.tar.gz" && \
     echo "downloading $file ..." && \
     curl -LOSs ${url}/$file && \
     sha512sum $file | grep -q "$shasum" || \
